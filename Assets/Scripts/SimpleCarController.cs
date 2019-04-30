@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class AxleInfo
@@ -24,11 +25,22 @@ public class SimpleCarController : MonoBehaviour
     private bool signPostActive;
     private GameObject tempGameObject;
     private float colorTimer;
-    private float waitingTime = 2.0f;
+    private float waitingTime = 3.0f;
     private Color org;
 
     //coins
     private int score;
+    public Text scoreText;
+
+    //gameTime
+    private float gameTime = 5.0f;
+    public Text timerText;
+
+
+    private void Start()
+    {
+        SetScoreText();
+    }
 
     public void ApplyLocalPositionToVisuals(WheelCollider collider)
     {
@@ -75,6 +87,17 @@ public class SimpleCarController : MonoBehaviour
 
     private void Update()
     {
+        gameTime -= Time.deltaTime;
+        SetTimerText();
+
+
+        if (gameTime < 0.0f)
+        {
+            Application.Quit();
+            UnityEditor.EditorApplication.isPlaying = false;
+
+        }
+
         if (signPostActive)
         {
             colorTimer += Time.deltaTime;
@@ -107,14 +130,12 @@ public class SimpleCarController : MonoBehaviour
 
                 signPostActive = true;
                 score--;
+                SetScoreText();
             }
             else
             {
                 //TODO: implement alert 
             }
-
-                
-
 
         }
 
@@ -122,8 +143,23 @@ public class SimpleCarController : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             score++;
+            SetScoreText();
         }
     }
+
+
+    void SetScoreText()
+    {
+        scoreText.text = "Score: " + score.ToString();
+
+    }
+
+    void SetTimerText()
+    {
+        timerText.text = "Time: " + gameTime.ToString("0");
+
+    }
+
 
 
 }
