@@ -14,9 +14,14 @@ public class AxleInfo
 public class SimpleCarController : MonoBehaviour
 {
     public List<AxleInfo> axleInfos;
+    [SerializeField]
+    public SignPost[] intersections;
     public float maxMotorTorque;
     public float maxSteeringAngle;
-
+    private SignPost colorChange;
+    private bool signPostActive;
+    private float colorTimer;
+    private Color org;
     // finds the corresponding visual wheel
     // correctly applies the transform
     public void ApplyLocalPositionToVisuals(WheelCollider collider)
@@ -41,6 +46,9 @@ public class SimpleCarController : MonoBehaviour
         float motor = maxMotorTorque * Input.GetAxis("Vertical");
         float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
 
+
+
+
         foreach (AxleInfo axleInfo in axleInfos)
         {
             if (axleInfo.steering)
@@ -57,4 +65,52 @@ public class SimpleCarController : MonoBehaviour
             ApplyLocalPositionToVisuals(axleInfo.rightWheel);
         }
     }
+
+
+    private void Update()
+    {
+        if (signPostActive)
+        {
+            colorTimer += Time.deltaTime;
+
+            if (colorTimer > 2.0f)
+            {
+                Debug.Log("here");
+
+                colorChange.tile.GetComponentInChildren<Renderer>().material.color = org;
+
+                // Remove the recorded 2 seconds.
+                colorTimer = colorTimer - 2.0f;
+                colorChange = null;
+                signPostActive = false;
+            }
+        }
+
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("SignPost"))
+        {
+            other.gameObject.SetActive(false);
+            colorChange = other.gameObject.GetComponent<SignPost>();
+            org = colorChange.tile.GetComponentInChildren<Renderer>().material.color;
+            colorChange.tile.GetComponentInChildren<Renderer>().material.color = Color.blue;
+
+            signPostActive = true;
+
+           
+        }
+    }
+
+
+    protected void SignColorChange(SignPost signPost, Color color) {
+
+        Renderer rend = signPost.tile.GetComponentInChildren<Renderer>();
+        Color originalColor = rend.material.GetColor("_Color");
+        Debug.Log(originalColor);
+        rend.material.shader = Shader.Find("_Standard");
+        rend.material.SetColor("_Color", color);
+    }
+
 }

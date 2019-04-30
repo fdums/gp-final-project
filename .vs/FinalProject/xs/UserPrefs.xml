@@ -1,17 +1,16 @@
 ﻿<Properties StartupConfiguration="{E1456745-ED92-4EB6-8905-E64DC1E47277}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/CameraController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SimpleCarController.cs">
     <Files>
-      <File FileName="Assets/Scripts/PlayerController.cs" Line="10" Column="1" />
-      <File FileName="Assets/Scripts/CameraController.cs" Line="23" Column="1" />
+      <File FileName="Assets/Scripts/CameraController.cs" Line="9" Column="28" />
+      <File FileName="Assets/Scripts/SimpleCarController.cs" Line="70" Column="6" />
+      <File FileName="Assets/Scripts/SignPost.cs" Line="15" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="FinalProject" expanded="True">
             <Node name="Assets" expanded="True">
-              <Node name="Scripts" expanded="True">
-                <Node name="CameraController.cs" selected="True" />
-              </Node>
+              <Node name="Scripts" expanded="True" />
             </Node>
           </Node>
         </State>
@@ -20,7 +19,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="2fc53a6f-e5db-4fc5-b2c7-92c793cc3f75" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="e9afdc98-243a-4f8d-91f4-ddb382cd0efa" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

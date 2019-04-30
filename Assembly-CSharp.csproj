@@ -61,7 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\Scripts\SignPost.cs" />
     <Compile Include="Assets\Scripts\SimpleCarController.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>/Users/fabioladums/Documents/Uni/FSU/Game Programming/FinalProject/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
