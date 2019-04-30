@@ -18,12 +18,18 @@ public class SimpleCarController : MonoBehaviour
     public SignPost[] intersections;
     public float maxMotorTorque;
     public float maxSteeringAngle;
+   
+    //signPost
     private SignPost colorChange;
     private bool signPostActive;
+    private GameObject tempGameObject;
     private float colorTimer;
+    private float waitingTime = 2.0f;
     private Color org;
-    // finds the corresponding visual wheel
-    // correctly applies the transform
+
+    //coins
+    private int score;
+
     public void ApplyLocalPositionToVisuals(WheelCollider collider)
     {
         if (collider.transform.childCount == 0)
@@ -73,44 +79,51 @@ public class SimpleCarController : MonoBehaviour
         {
             colorTimer += Time.deltaTime;
 
-            if (colorTimer > 2.0f)
+            if (colorTimer > waitingTime)
             {
-                Debug.Log("here");
-
                 colorChange.tile.GetComponentInChildren<Renderer>().material.color = org;
 
                 // Remove the recorded 2 seconds.
-                colorTimer = colorTimer - 2.0f;
+                colorTimer = colorTimer - waitingTime;
                 colorChange = null;
                 signPostActive = false;
+                tempGameObject.SetActive(true);
             }
         }
 
     }
 
     void OnTriggerEnter(Collider other)
-    {
+    { 
         if (other.gameObject.CompareTag("SignPost"))
         {
+            if(score >= 1)
+            {
+                tempGameObject = other.gameObject;
+                other.gameObject.SetActive(false);
+                colorChange = other.gameObject.GetComponent<SignPost>();
+                org = colorChange.tile.GetComponentInChildren<Renderer>().material.color;
+                colorChange.tile.GetComponentInChildren<Renderer>().material.color = Color.blue;
+
+                signPostActive = true;
+                score--;
+            }
+            else
+            {
+                //TODO: implement alert 
+            }
+
+                
+
+
+        }
+
+        else if (other.gameObject.CompareTag("Coin"))
+        {
             other.gameObject.SetActive(false);
-            colorChange = other.gameObject.GetComponent<SignPost>();
-            org = colorChange.tile.GetComponentInChildren<Renderer>().material.color;
-            colorChange.tile.GetComponentInChildren<Renderer>().material.color = Color.blue;
-
-            signPostActive = true;
-
-           
+            score++;
         }
     }
 
-
-    protected void SignColorChange(SignPost signPost, Color color) {
-
-        Renderer rend = signPost.tile.GetComponentInChildren<Renderer>();
-        Color originalColor = rend.material.GetColor("_Color");
-        Debug.Log(originalColor);
-        rend.material.shader = Shader.Find("_Standard");
-        rend.material.SetColor("_Color", color);
-    }
 
 }
