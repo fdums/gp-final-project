@@ -15,12 +15,10 @@ public class AxleInfo
 public class SimpleCarController : MonoBehaviour
 {
     public List<AxleInfo> axleInfos;
-    [SerializeField]
-    public SignPost[] intersections;
     public float maxMotorTorque;
     public float maxSteeringAngle;
    
-    //signPost
+    //signPost-path finding
     private SignPost colorChange;
     private bool signPostActive;
     private GameObject tempGameObject;
@@ -33,13 +31,23 @@ public class SimpleCarController : MonoBehaviour
     public Text scoreText;
 
     //gameTime
-    private float gameTime = 5.0f;
+    private float gameTime = 60.0f;
     public Text timerText;
 
+    //state machine
+    //public AIState state = new AIState();
+    enum AIState { 
+        Normal,
+        Pedestrian
+    };
+
+    AIState state = AIState.Normal;
+    float initialMaxMotor;
 
     private void Start()
     {
         SetScoreText();
+        initialMaxMotor = maxMotorTorque;
     }
 
     public void ApplyLocalPositionToVisuals(WheelCollider collider)
@@ -65,8 +73,6 @@ public class SimpleCarController : MonoBehaviour
         float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
 
 
-
-
         foreach (AxleInfo axleInfo in axleInfos)
         {
             if (axleInfo.steering)
@@ -78,7 +84,9 @@ public class SimpleCarController : MonoBehaviour
             {
                 axleInfo.leftWheel.motorTorque = motor;
                 axleInfo.rightWheel.motorTorque = motor;
+
             }
+
             ApplyLocalPositionToVisuals(axleInfo.leftWheel);
             ApplyLocalPositionToVisuals(axleInfo.rightWheel);
         }
@@ -90,6 +98,7 @@ public class SimpleCarController : MonoBehaviour
         gameTime -= Time.deltaTime;
         SetTimerText();
 
+        StateMachine();
 
         if (gameTime < 0.0f)
         {
@@ -120,38 +129,32 @@ public class SimpleCarController : MonoBehaviour
     { 
         if (other.gameObject.CompareTag("SignPost"))
         {
-            if(score >= 1)
-            {
-                tempGameObject = other.gameObject;
-                other.gameObject.SetActive(false);
-                colorChange = other.gameObject.GetComponent<SignPost>();
-                org = colorChange.tile.GetComponentInChildren<Renderer>().material.color;
-                colorChange.tile.GetComponentInChildren<Renderer>().material.color = Color.blue;
-
-                signPostActive = true;
-                score--;
-                SetScoreText();
-            }
-            else
-            {
-                //TODO: implement alert 
-            }
-
+            TriggerSignPost(other);
         }
 
         else if (other.gameObject.CompareTag("Coin"))
         {
-            other.gameObject.SetActive(false);
-            score++;
-            SetScoreText();
+            TriggerCoin(other);
+        }
+
+        else if (other.gameObject.CompareTag("Pedestrian"))
+        {
+            SetState(AIState.Pedestrian);
         }
     }
 
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Pedestrian"))
+        {
+            SetState(AIState.Normal);
+        }
+    }
+
     void SetScoreText()
     {
         scoreText.text = "Score: " + score.ToString();
-
     }
 
     void SetTimerText()
@@ -160,6 +163,67 @@ public class SimpleCarController : MonoBehaviour
 
     }
 
+    void SetState (AIState newState)
+    {
+        state = newState;
+        //state.Enter();
+    }
+
+    void TriggerSignPost(Collider other)
+    {
+        if (score >= 1)
+        {
+            tempGameObject = other.gameObject;
+            other.gameObject.SetActive(false);
+            colorChange = other.gameObject.GetComponent<SignPost>();
+            org = colorChange.tile.GetComponentInChildren<Renderer>().material.color;
+            colorChange.tile.GetComponentInChildren<Renderer>().material.color = Color.blue;
+
+            signPostActive = true;
+            score--;
+            SetScoreText();
+        }
+        else
+        {
+            //TODO: implement alert 
+        }
+    }
+
+    void TriggerCoin (Collider other)
+    {
+        other.gameObject.SetActive(false);
+        score++;
+        SetScoreText();
+    }
+
+
+
+    void StateMachine()
+    {
+       switch (state)
+        {
+            case AIState.Normal:
+                maxMotorTorque = initialMaxMotor;
+                break;
+
+
+            case AIState.Pedestrian:
+                foreach (AxleInfo axleInfo in axleInfos) {
+                    axleInfo.leftWheel.brakeTorque = 100000f;
+                    axleInfo.rightWheel.brakeTorque = 100000f;
+                }
+
+                foreach (AxleInfo axleInfo in axleInfos)
+                {
+                    axleInfo.leftWheel.brakeTorque = 0;
+                    axleInfo.rightWheel.brakeTorque = 0;
+                }
+
+                maxMotorTorque = 5.0f;
+                break;
+        };
+
+    }
 
 
 }

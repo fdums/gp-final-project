@@ -6,6 +6,7 @@ TagManager:
   tags:
   - SignPost
   - Coin
+  - Pedestrian
   layers:
   - Default
   - TransparentFX
