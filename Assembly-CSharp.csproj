@@ -60,8 +60,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\AIState.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\CarInfo.cs" />
+    <Compile Include="Assets\Scripts\NormalState.cs" />
     <Compile Include="Assets\Scripts\Pedestrian.cs" />
+    <Compile Include="Assets\Scripts\PedestrianState.cs" />
     <Compile Include="Assets\Scripts\Rotator.cs" />
     <Compile Include="Assets\Scripts\SignPost.cs" />
     <Compile Include="Assets\Scripts\SimpleCarController.cs" />

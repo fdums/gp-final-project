@@ -6866,6 +6866,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 380137987}
   m_PrefabAsset: {fileID: 0}
+--- !u!146 &380342829 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 2313883206290698681, guid: b557f8b127e354981825303fd19aa410,
+    type: 3}
+  m_PrefabInstance: {fileID: 1855591739}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &382615019
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11398,6 +11404,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.089999996, y: 0.2575, z: 0.089999996}
   m_Center: {x: 0, y: 0.12875, z: 0}
+--- !u!146 &587750127 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 2313883205832096192, guid: b557f8b127e354981825303fd19aa410,
+    type: 3}
+  m_PrefabInstance: {fileID: 1855591739}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &593952643
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14616,7 +14628,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 3}
+  m_Size: {x: 2, y: 1, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &728827191
 MonoBehaviour:
@@ -22371,6 +22383,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400002, guid: dc3f92685e2ceac45b136a4e6133755e,
     type: 3}
   m_PrefabInstance: {fileID: 1105608590}
+  m_PrefabAsset: {fileID: 0}
+--- !u!146 &1109761862 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 2313883205915985768, guid: b557f8b127e354981825303fd19aa410,
+    type: 3}
+  m_PrefabInstance: {fileID: 1855591739}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1111112380
 PrefabInstance:
@@ -35179,6 +35197,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2313883205338060718, guid: b557f8b127e354981825303fd19aa410,
         type: 3}
+      propertyPath: axleInfos.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313883205338060718, guid: b557f8b127e354981825303fd19aa410,
+        type: 3}
+      propertyPath: carInfo.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313883205338060718, guid: b557f8b127e354981825303fd19aa410,
+        type: 3}
       propertyPath: maxSteeringAngle
       value: 45
       objectReference: {fileID: 0}
@@ -35201,6 +35229,81 @@ PrefabInstance:
         type: 3}
       propertyPath: maxMotorTorque
       value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313883205338060718, guid: b557f8b127e354981825303fd19aa410,
+        type: 3}
+      propertyPath: axleInfos.Array.data[0].leftWheel
+      value: 
+      objectReference: {fileID: 1956812997}
+    - target: {fileID: 2313883205338060718, guid: b557f8b127e354981825303fd19aa410,
+        type: 3}
+      propertyPath: axleInfos.Array.data[0].rightWheel
+      value: 
+      objectReference: {fileID: 380342829}
+    - target: {fileID: 2313883205338060718, guid: b557f8b127e354981825303fd19aa410,
+        type: 3}
+      propertyPath: axleInfos.Array.data[0].motor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313883205338060718, guid: b557f8b127e354981825303fd19aa410,
+        type: 3}
+      propertyPath: axleInfos.Array.data[0].steering
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313883205338060718, guid: b557f8b127e354981825303fd19aa410,
+        type: 3}
+      propertyPath: axleInfos.Array.data[1].leftWheel
+      value: 
+      objectReference: {fileID: 1109761862}
+    - target: {fileID: 2313883205338060718, guid: b557f8b127e354981825303fd19aa410,
+        type: 3}
+      propertyPath: axleInfos.Array.data[1].rightWheel
+      value: 
+      objectReference: {fileID: 587750127}
+    - target: {fileID: 2313883205338060718, guid: b557f8b127e354981825303fd19aa410,
+        type: 3}
+      propertyPath: axleInfos.Array.data[1].motor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313883205338060718, guid: b557f8b127e354981825303fd19aa410,
+        type: 3}
+      propertyPath: axleInfos.Array.data[1].steering
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313883205338060718, guid: b557f8b127e354981825303fd19aa410,
+        type: 3}
+      propertyPath: carInfo.Array.data[0].motor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313883205338060718, guid: b557f8b127e354981825303fd19aa410,
+        type: 3}
+      propertyPath: carInfo.Array.data[0].steering
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2313883205338060718, guid: b557f8b127e354981825303fd19aa410,
+        type: 3}
+      propertyPath: carInfo.Array.data[0].leftWheel
+      value: 
+      objectReference: {fileID: 1956812997}
+    - target: {fileID: 2313883205338060718, guid: b557f8b127e354981825303fd19aa410,
+        type: 3}
+      propertyPath: carInfo.Array.data[0].rightWheel
+      value: 
+      objectReference: {fileID: 380342829}
+    - target: {fileID: 2313883205338060718, guid: b557f8b127e354981825303fd19aa410,
+        type: 3}
+      propertyPath: carInfo.Array.data[1].leftWheel
+      value: 
+      objectReference: {fileID: 1109761862}
+    - target: {fileID: 2313883205338060718, guid: b557f8b127e354981825303fd19aa410,
+        type: 3}
+      propertyPath: carInfo.Array.data[1].rightWheel
+      value: 
+      objectReference: {fileID: 587750127}
+    - target: {fileID: 2313883205338060718, guid: b557f8b127e354981825303fd19aa410,
+        type: 3}
+      propertyPath: carInfo.Array.data[1].motor
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2313883206074323898, guid: b557f8b127e354981825303fd19aa410,
         type: 3}
@@ -37629,6 +37732,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.089999996, y: 0.14, z: 0.089999996}
   m_Center: {x: 0, y: 0.07, z: 0}
+--- !u!146 &1956812997 stripped
+WheelCollider:
+  m_CorrespondingSourceObject: {fileID: 2313883206771740830, guid: b557f8b127e354981825303fd19aa410,
+    type: 3}
+  m_PrefabInstance: {fileID: 1855591739}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1957446263
 PrefabInstance:
   m_ObjectHideFlags: 0

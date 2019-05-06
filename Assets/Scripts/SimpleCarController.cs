@@ -3,18 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-[System.Serializable]
-public class AxleInfo
-{
-    public WheelCollider leftWheel;
-    public WheelCollider rightWheel;
-    public bool motor;
-    public bool steering;
-}
-
 public class SimpleCarController : MonoBehaviour
-{
-    public List<AxleInfo> axleInfos;
+{ 
+    public List<CarInfo> carInfo;
     public float maxMotorTorque;
     public float maxSteeringAngle;
    
@@ -35,19 +26,16 @@ public class SimpleCarController : MonoBehaviour
     public Text timerText;
 
     //state machine
-    //public AIState state = new AIState();
-    enum AIState { 
-        Normal,
-        Pedestrian
-    };
-
-    AIState state = AIState.Normal;
-    float initialMaxMotor;
+    public NormalState normalState = new NormalState();
+    public PedestrianState pedestrianState = new PedestrianState();
+    public AIState state;
+    public float initialMaxMotor;
 
     private void Start()
     {
         SetScoreText();
         initialMaxMotor = maxMotorTorque;
+        SetState(normalState);
     }
 
     public void ApplyLocalPositionToVisuals(WheelCollider collider)
@@ -55,7 +43,6 @@ public class SimpleCarController : MonoBehaviour
         if (collider.transform.childCount == 0)
         {
             return;
-
         }
 
         Transform visualWheel = collider.transform.GetChild(0);
@@ -73,22 +60,22 @@ public class SimpleCarController : MonoBehaviour
         float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
 
 
-        foreach (AxleInfo axleInfo in axleInfos)
+        foreach (CarInfo info in carInfo)
         {
-            if (axleInfo.steering)
+            if (info.steering)
             {
-                axleInfo.leftWheel.steerAngle = steering;
-                axleInfo.rightWheel.steerAngle = steering;
+                info.leftWheel.steerAngle = steering;
+                info.rightWheel.steerAngle = steering;
             }
-            if (axleInfo.motor)
+            if (info.motor)
             {
-                axleInfo.leftWheel.motorTorque = motor;
-                axleInfo.rightWheel.motorTorque = motor;
+                info.leftWheel.motorTorque = motor;
+                info.rightWheel.motorTorque = motor;
 
             }
 
-            ApplyLocalPositionToVisuals(axleInfo.leftWheel);
-            ApplyLocalPositionToVisuals(axleInfo.rightWheel);
+            ApplyLocalPositionToVisuals(info.leftWheel);
+            ApplyLocalPositionToVisuals(info.rightWheel);
         }
     }
 
@@ -97,8 +84,6 @@ public class SimpleCarController : MonoBehaviour
     {
         gameTime -= Time.deltaTime;
         SetTimerText();
-
-        StateMachine();
 
         if (gameTime < 0.0f)
         {
@@ -139,7 +124,7 @@ public class SimpleCarController : MonoBehaviour
 
         else if (other.gameObject.CompareTag("Pedestrian"))
         {
-            SetState(AIState.Pedestrian);
+            SetState(pedestrianState);
         }
     }
 
@@ -148,7 +133,7 @@ public class SimpleCarController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Pedestrian"))
         {
-            SetState(AIState.Normal);
+            SetState(normalState);
         }
     }
 
@@ -166,7 +151,8 @@ public class SimpleCarController : MonoBehaviour
     void SetState (AIState newState)
     {
         state = newState;
-        //state.Enter();
+        state.EnterState(this);
+        Debug.Log(state);
     }
 
     void TriggerSignPost(Collider other)
@@ -197,33 +183,6 @@ public class SimpleCarController : MonoBehaviour
     }
 
 
-
-    void StateMachine()
-    {
-       switch (state)
-        {
-            case AIState.Normal:
-                maxMotorTorque = initialMaxMotor;
-                break;
-
-
-            case AIState.Pedestrian:
-                foreach (AxleInfo axleInfo in axleInfos) {
-                    axleInfo.leftWheel.brakeTorque = 100000f;
-                    axleInfo.rightWheel.brakeTorque = 100000f;
-                }
-
-                foreach (AxleInfo axleInfo in axleInfos)
-                {
-                    axleInfo.leftWheel.brakeTorque = 0;
-                    axleInfo.rightWheel.brakeTorque = 0;
-                }
-
-                maxMotorTorque = 5.0f;
-                break;
-        };
-
-    }
 
 
 }
