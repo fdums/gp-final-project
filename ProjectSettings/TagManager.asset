@@ -8,6 +8,8 @@ TagManager:
   - Coin
   - Pedestrian
   - Time
+  - RightPedCol
+  - LeftPedCol
   layers:
   - Default
   - TransparentFX

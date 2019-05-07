@@ -5,10 +5,7 @@ using UnityEngine;
 public class Pedestrian : MonoBehaviour
 {
 
-    [SerializeField]
-    public GameObject leftBoundary;
-    public GameObject rightBoundary;
-    public char axis;
+    Vector3 movement = new Vector3(0.05f, 0, 0);
 
 
     // Start is called before the first frame update
@@ -23,31 +20,25 @@ public class Pedestrian : MonoBehaviour
         Walk();
     }
 
-    protected void CheckForCollision()
+
+
+   void OnTriggerEnter(Collider other)
     {
-        
-    }
+        if (other.gameObject.CompareTag("LeftPedCol"))
+        {
+            movement = movement * -1;
+            Vector3 currentRotation = gameObject.transform.eulerAngles;
+            transform.rotation = Quaternion.Euler(0, currentRotation.y * -1.0f, 0 );
+        }
+     }
 
     protected void Walk()
     {
-        Vector3 movement; 
-        switch (axis)
-        {
-            case 'x':
-                movement = new Vector3(0.3f, 0, 0);
-                transform.position += movement;
-                break;
-            case 'y':
-                movement = new Vector3( 0, 1.0f, 0);
-                transform.position = movement;
-                break;
-            case 'z':
-                movement = new Vector3( 0, 0, 1.0f);
-                transform.position = movement;
-                break;
-        }
 
-
+        transform.position += movement;
 
     }
+
+
+
 }

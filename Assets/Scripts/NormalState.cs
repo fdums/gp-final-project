@@ -9,8 +9,7 @@ public class NormalState: AIState
     public override void EnterState(SimpleCarController car)
     {
         car.maxMotorTorque = car.initialMaxMotor;
-        Debug.Log(car.maxMotorTorque);
-        Debug.Log("ai normal");
+        car.pedestrianWarning.enabled = false;
 
     }
 }

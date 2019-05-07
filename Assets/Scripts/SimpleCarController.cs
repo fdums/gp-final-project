@@ -26,7 +26,6 @@ public class SimpleCarController : MonoBehaviour
     private float coinWaitingTime = 15.0f;
 
 
-
     //gameTime
     private float gameTime = 180.0f;
     public Text timerText;
@@ -36,6 +35,7 @@ public class SimpleCarController : MonoBehaviour
     public PedestrianState pedestrianState = new PedestrianState();
     public AIState state;
     public float initialMaxMotor;
+    public RawImage pedestrianWarning;
 
     //sounds
     AudioSource audioSource;
@@ -46,6 +46,7 @@ public class SimpleCarController : MonoBehaviour
 
     private void Start()
     {
+        pedestrianWarning.enabled = false;
         SetScoreText();
         initialMaxMotor = maxMotorTorque;
         SetState(normalState);
