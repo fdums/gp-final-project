@@ -8,6 +8,14 @@ public class PedestrianState: AIState
 
     public override void EnterState(SimpleCarController car)
     {
+
+        foreach (CarInfo info in car.carInfo)
+        {
+            info.leftWheel.motorTorque = 0;
+            info.rightWheel.motorTorque = 0;
+        }
+
+
         foreach (CarInfo info in car.carInfo)
         {
             info.leftWheel.brakeTorque = 10000000f;

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(AudioSource))]
 public class SimpleCarController : MonoBehaviour
 { 
     public List<CarInfo> carInfo;
@@ -20,9 +21,14 @@ public class SimpleCarController : MonoBehaviour
     //coins
     private int score;
     public Text scoreText;
+    public GameObject[] coins;
+    private float coinTimer;
+    private float coinWaitingTime = 15.0f;
+
+
 
     //gameTime
-    private float gameTime = 60.0f;
+    private float gameTime = 180.0f;
     public Text timerText;
 
     //state machine
@@ -31,11 +37,19 @@ public class SimpleCarController : MonoBehaviour
     public AIState state;
     public float initialMaxMotor;
 
+    //sounds
+    AudioSource audioSource;
+    public AudioClip soundCoin;
+    public AudioClip soundSignPost;
+    public AudioClip soundAddTime;
+
+
     private void Start()
     {
         SetScoreText();
         initialMaxMotor = maxMotorTorque;
         SetState(normalState);
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void ApplyLocalPositionToVisuals(WheelCollider collider)
@@ -100,7 +114,6 @@ public class SimpleCarController : MonoBehaviour
             {
                 colorChange.tile.GetComponentInChildren<Renderer>().material.color = org;
 
-                // Remove the recorded 2 seconds.
                 colorTimer = colorTimer - waitingTime;
                 colorChange = null;
                 signPostActive = false;
@@ -108,6 +121,20 @@ public class SimpleCarController : MonoBehaviour
             }
         }
 
+        coinTimer += Time.deltaTime;
+
+        if (coinTimer > coinWaitingTime)
+        {
+            foreach (GameObject coin in coins)
+            {
+                if (!coin.activeSelf)
+                {
+                    coin.SetActive(true);
+                }
+            }
+            coinTimer = coinTimer - coinWaitingTime;
+
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -126,7 +153,12 @@ public class SimpleCarController : MonoBehaviour
         {
             SetState(pedestrianState);
         }
+        else if (other.gameObject.CompareTag("Time"))
+        {
+            TriggerTime(other);
+        }
     }
+
 
 
     private void OnTriggerExit(Collider other)
@@ -161,6 +193,7 @@ public class SimpleCarController : MonoBehaviour
         {
             tempGameObject = other.gameObject;
             other.gameObject.SetActive(false);
+            audioSource.PlayOneShot(soundSignPost, 1);
             colorChange = other.gameObject.GetComponent<SignPost>();
             org = colorChange.tile.GetComponentInChildren<Renderer>().material.color;
             colorChange.tile.GetComponentInChildren<Renderer>().material.color = Color.blue;
@@ -177,9 +210,18 @@ public class SimpleCarController : MonoBehaviour
 
     void TriggerCoin (Collider other)
     {
+        audioSource.PlayOneShot(soundCoin, 1);
         other.gameObject.SetActive(false);
         score++;
         SetScoreText();
+    }
+
+    void TriggerTime (Collider other)
+    {
+        audioSource.PlayOneShot(soundAddTime, 1);
+        other.gameObject.SetActive(false);
+        gameTime += 30.0f;
+
     }
 
 
