@@ -42,6 +42,8 @@ public class SimpleCarController : MonoBehaviour
     public AudioClip soundCoin;
     public AudioClip soundSignPost;
     public AudioClip soundAddTime;
+    public AudioClip soundWin;
+    public AudioClip soundLoose;
 
 
     //GameControl
@@ -240,6 +242,7 @@ public class SimpleCarController : MonoBehaviour
     void TriggerGoal(Collider other)
     {
         isPause = true;
+        audioSource.PlayOneShot(soundWin, 1);
         winnerText.enabled = true;
         backgroundWT.SetActive(true);
         winnerText.text = "Congratulations!\n You delivered the pizza on time! \n " +
@@ -265,6 +268,7 @@ public class SimpleCarController : MonoBehaviour
     void GameOver()
     {
         isPause = true;
+        audioSource.PlayOneShot(soundLoose, 1);
         winnerText.enabled = true;
         backgroundWT.SetActive(true);
         winnerText.text = "Unfortunately you couldn't deliver the pizza on time \n" +

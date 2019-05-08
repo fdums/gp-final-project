@@ -7,10 +7,13 @@ public class CameraController : MonoBehaviour
     private Transform target;
     [SerializeField]
     private Vector3 offsetPosition;
+    AudioSource audioSource;
+    public AudioClip backgroundMusic;
+
 
     private void Start()
     {
-
+        audioSource.PlayOneShot(backgroundMusic, 0.4F);
     }
 
     private void Update()
