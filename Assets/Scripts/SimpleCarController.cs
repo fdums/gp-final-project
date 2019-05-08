@@ -44,6 +44,11 @@ public class SimpleCarController : MonoBehaviour
     public AudioClip soundAddTime;
 
 
+    //GameControl
+    public Text winnerText;
+    public GameObject backgroundWT;
+    protected bool isPause = false;
+
     private void Start()
     {
         pedestrianWarning.enabled = false;
@@ -51,6 +56,9 @@ public class SimpleCarController : MonoBehaviour
         initialMaxMotor = maxMotorTorque;
         SetState(normalState);
         audioSource = GetComponent<AudioSource>();
+        winnerText.enabled = false;
+        backgroundWT.SetActive(false);
+
     }
 
     public void ApplyLocalPositionToVisuals(WheelCollider collider)
@@ -71,6 +79,17 @@ public class SimpleCarController : MonoBehaviour
 
     public void FixedUpdate()
     {
+
+        if (isPause)
+        {
+            foreach (CarInfo info in carInfo)
+            {
+                info.leftWheel.brakeTorque = 10000000f;
+                info.rightWheel.brakeTorque = 10000000f;
+            }
+            return;
+        } 
+
         float motor = maxMotorTorque * Input.GetAxis("Vertical");
         float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
 
@@ -97,13 +116,19 @@ public class SimpleCarController : MonoBehaviour
 
     private void Update()
     {
+        if (isPause)
+        {
+            return;
+        }
+
+
         gameTime -= Time.deltaTime;
         SetTimerText();
 
+
         if (gameTime < 0.0f)
         {
-            Application.Quit();
-            UnityEditor.EditorApplication.isPlaying = false;
+            GameOver();
 
         }
 
@@ -158,11 +183,14 @@ public class SimpleCarController : MonoBehaviour
         {
             TriggerTime(other);
         }
+        else if (other.gameObject.CompareTag("Goal"))
+        {
+            TriggerGoal(other);
+        }
+
     }
 
-
-
-    private void OnTriggerExit(Collider other)
+    void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Pedestrian"))
         {
@@ -209,6 +237,15 @@ public class SimpleCarController : MonoBehaviour
         }
     }
 
+    void TriggerGoal(Collider other)
+    {
+        isPause = true;
+        winnerText.enabled = true;
+        backgroundWT.SetActive(true);
+        winnerText.text = "Congratulations!\n You delivered the pizza on time! \n " +
+            "Score: " + score + " ,\n Time left: " + gameTime.ToString("0");
+    }
+
     void TriggerCoin (Collider other)
     {
         audioSource.PlayOneShot(soundCoin, 1);
@@ -225,7 +262,16 @@ public class SimpleCarController : MonoBehaviour
 
     }
 
-
+    void GameOver()
+    {
+        isPause = true;
+        winnerText.enabled = true;
+        backgroundWT.SetActive(true);
+        winnerText.text = "Unfortunately you couldn't deliver the pizza on time \n" +
+        	"Click restart to try again";
+    }
 
 
 }
+
+

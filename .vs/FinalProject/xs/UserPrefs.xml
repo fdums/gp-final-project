@@ -1,24 +1,24 @@
 ﻿<Properties StartupConfiguration="{E1456745-ED92-4EB6-8905-E64DC1E47277}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/NewClass.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/RestartGame.cs">
     <Files>
       <File FileName="Assets/Scripts/CameraController.cs" Line="17" Column="1" />
-      <File FileName="Assets/Scripts/SimpleCarController.cs" Line="34" Column="17" />
-      <File FileName="Assets/Scripts/SignPost.cs" Line="8" Column="36" />
+      <File FileName="Assets/Scripts/SimpleCarController.cs" Line="233" Column="36" />
+      <File FileName="Assets/Scripts/Pedestrian.cs" Line="33" Column="2" />
+      <File FileName="Assets/Scripts/SignPost.cs" Line="1" Column="1" />
       <File FileName="Assets/Scripts/Rotator.cs" Line="11" Column="46" />
-      <File FileName="Assets/Scripts/Pedestrian.cs" Line="35" Column="10" />
-      <File FileName="Assets/Scripts/CarInfo.cs" Line="6" Column="22" />
-      <File FileName="Assets/Scripts/NormalState.cs" Line="2" Column="25" />
-      <File FileName="Assets/Scripts/PedestrianState.cs" Line="4" Column="4" />
-      <File FileName="Assets/Scripts/NewClass.cs" Line="4" Column="4" />
+      <File FileName="Assets/Scripts/CarInfo.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/NormalState.cs" Line="12" Column="47" />
+      <File FileName="Assets/Scripts/PedestrianState.cs" Line="9" Column="61" />
+      <File FileName="Assets/Scripts/AIState.cs" Line="8" Column="62" />
+      <File FileName="Assets/RestartGame.cs" Line="7" Column="15" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="FinalProject" expanded="True">
             <Node name="Assets" expanded="True">
-              <Node name="Scripts" expanded="True">
-                <Node name="NewClass.cs" selected="True" />
-              </Node>
+              <Node name="Scripts" expanded="True" />
+              <Node name="RestartGame.cs" selected="True" />
             </Node>
           </Node>
         </State>

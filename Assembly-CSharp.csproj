@@ -66,9 +66,11 @@
     <Compile Include="Assets\Scripts\NormalState.cs" />
     <Compile Include="Assets\Scripts\Pedestrian.cs" />
     <Compile Include="Assets\Scripts\PedestrianState.cs" />
+    <Compile Include="Assets\Scripts\RestartGame.cs" />
     <Compile Include="Assets\Scripts\Rotator.cs" />
     <Compile Include="Assets\Scripts\SignPost.cs" />
     <Compile Include="Assets\Scripts\SimpleCarController.cs" />
+    <None Include="Assets\downloaded_assets\kenney_racingkit2\License.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>/Users/fabioladums/Documents/Uni/FSU/Game Programming/FinalProject/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

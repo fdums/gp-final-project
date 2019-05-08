@@ -8,6 +8,11 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private Vector3 offsetPosition;
 
+    private void Start()
+    {
+
+    }
+
     private void Update()
     {
         transform.position = target.TransformPoint(offsetPosition);
