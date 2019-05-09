@@ -36,6 +36,7 @@ public class SimpleCarController : MonoBehaviour
     public AIState state;
     public float initialMaxMotor;
     public RawImage pedestrianWarning;
+    public bool isPed;
 
     //sounds
     AudioSource audioSource;
@@ -91,6 +92,23 @@ public class SimpleCarController : MonoBehaviour
             }
             return;
         } 
+
+
+        if (isPed)
+        {
+            foreach (CarInfo info in carInfo)
+            {
+
+                info.leftWheel.brakeTorque = 1f;
+                info.rightWheel.brakeTorque = 1f;
+
+                info.leftWheel.motorTorque = 100f;
+                info.rightWheel.motorTorque = 100f;
+
+
+            }
+            return;
+        }
 
         float motor = maxMotorTorque * Input.GetAxis("Vertical");
         float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
@@ -180,6 +198,7 @@ public class SimpleCarController : MonoBehaviour
         else if (other.gameObject.CompareTag("Pedestrian"))
         {
             SetState(pedestrianState);
+
         }
         else if (other.gameObject.CompareTag("Time"))
         {
@@ -233,10 +252,7 @@ public class SimpleCarController : MonoBehaviour
             score--;
             SetScoreText();
         }
-        else
-        {
-            //TODO: implement alert 
-        }
+
     }
 
     void TriggerGoal(Collider other)
