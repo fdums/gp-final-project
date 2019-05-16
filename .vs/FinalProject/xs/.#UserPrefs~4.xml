@@ -1,0 +1,34 @@
+﻿<Properties StartupConfiguration="{E1456745-ED92-4EB6-8905-E64DC1E47277}|">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SignPost.cs">
+    <Files>
+      <File FileName="Assets/Scripts/CameraController.cs" Line="16" Column="56" />
+      <File FileName="Assets/Scripts/SimpleCarController.cs" Line="106" Column="50" />
+      <File FileName="Assets/Scripts/RestartGame.cs" Line="1" Column="1" />
+      <File FileName="Assets/ButtonHandler.cs" Line="6" Column="27" />
+      <File FileName="Assets/Scripts/PedestrianState.cs" Line="23" Column="35" />
+      <File FileName="Assets/Scripts/AIState.cs" Line="8" Column="37" />
+      <File FileName="Assets/Scripts/NormalState.cs" Line="17" Column="10" />
+      <File FileName="Assets/Scripts/SignPost.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="FinalProject" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="Scripts" expanded="True">
+                <Node name="SignPost.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="4ce66e9b-1be9-4216-8187-b3b3770e5413" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
